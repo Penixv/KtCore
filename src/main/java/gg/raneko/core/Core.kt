@@ -14,6 +14,7 @@ class Core : JavaPlugin() {
     }
 
     val cooldownListener = CooldownListener()
+
     override fun onEnable() {
         instance = this
         registerCommands()
