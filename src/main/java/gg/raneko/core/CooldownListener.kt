@@ -9,31 +9,31 @@ class CooldownListener {
     val commandCoolDownMap = HashMap<String, Long>()
 
     init {
-        commandCoolDownMap.put("heal", 25 * 1000)
+        registerCommand("heal", 25*1000)
+    }
+
+    private fun registerCommand(command: String, delay: Long) {
+        commandCoolDown.put(command, HashMap())
+        commandCoolDownMap.put(command, delay)
     }
 
     fun getCommandCooldownTime(command: String, player: UUID): Long {
-        val commandMap = commandCoolDown.get(command) ?: return -1
+        val commandMap = commandCoolDown.get(command) ?: return 0
         val cooldown: Long = commandCoolDownMap.get(command)!!
-        val playerMap = commandMap.get(player) ?: return -1
-        return System.currentTimeMillis() - (cooldown + playerMap)
+        val playerMap = commandMap.get(player) ?: return 0
+        return (cooldown + playerMap) - System.currentTimeMillis()
     }
 
     fun addCommandCooldown(command: String, player: UUID) {
         val commandMap = commandCoolDown.get(command)
-        if (commandMap != null) {
-            commandMap.put(player, System.currentTimeMillis())
-        }
+        commandMap?.put(player, System.currentTimeMillis())
     }
 
     fun hasExpiredCommand(command: String, player: UUID): Boolean {
         val commandMap = commandCoolDown.get(command)
         if (commandMap != null) {
-            val cooldown: Long = commandCoolDownMap.get(command)!!
-            val oldCooldown = commandMap.get(player) ?: return true
-            val current = System.currentTimeMillis() - (oldCooldown + cooldown)
-            if (current >= 0) return true
+           return getCommandCooldownTime(command, player) <= 0
         }
-        return false
+        return true
     }
 }

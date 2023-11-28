@@ -3,6 +3,7 @@ package gg.raneko.core
 import gg.raneko.core.command.base.HealCommand
 import gg.raneko.core.command.base.PingCommand
 import gg.raneko.core.listener.BasicListener
+import gg.raneko.core.util.ProfileMaker
 import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.plugin.java.JavaPlugin
@@ -14,6 +15,7 @@ class Core : JavaPlugin() {
     }
 
     val cooldownListener = CooldownListener()
+    val profileMaker = ProfileMaker()
 
     override fun onEnable() {
         instance = this

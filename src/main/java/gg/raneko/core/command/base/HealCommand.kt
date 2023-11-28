@@ -15,7 +15,7 @@ class HealCommand: Command("heal") {
         if (sender is Player) {
             if (!cooldownListener.hasExpiredCommand("heal", sender.uniqueId)) {
                 sender.sendMessage(ChatColor.RED.toString() + "Command 'heal' is now on cooldown for "
-                        + cooldownListener.getCommandCooldownTime("heal", sender.uniqueId) + "s !")
+                        + cooldownListener.getCommandCooldownTime("heal", sender.uniqueId)/1000 + "s !")
                 return true
             }
             if (p2.isEmpty()) {
@@ -34,6 +34,7 @@ class HealCommand: Command("heal") {
                 target.foodLevel = 20
                 target.fireTicks = 0
                 sender.sendMessage(ChatColor.GREEN.toString() + target.name + " have been healed ~")
+                target.sendMessage(ChatColor.GREEN.toString() + "You have been healed by " + sender.name)
                 cooldownListener.addCommandCooldown("heal", sender.uniqueId)
             }
         } else {
