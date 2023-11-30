@@ -39,7 +39,7 @@ public class ConfigUtil
 
 
     public ConfigUtil(JavaPlugin plugin, String filePath, String fileName) {
-        this.file = new File(plugin.getDataFolder() + filePath + File.pathSeparator + fileName);
+        this.file = new File(plugin.getDataFolder().toString() + File.separatorChar + filePath + File.separatorChar + fileName);
         if (!this.file.exists()) {
             this.file.getParentFile().mkdirs();
             if (plugin.getResource(fileName) == null) {

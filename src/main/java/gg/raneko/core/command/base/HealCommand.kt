@@ -9,7 +9,7 @@ import org.bukkit.entity.Player
 
 class HealCommand: Command("heal") {
 
-    val cooldownListener = Core.instance.cooldownListener
+    val cooldownListener = Core.instance!!.cooldownListener
 
     override fun execute(sender: CommandSender, p1: String, p2: Array<out String>): Boolean {
         if (sender is Player) {
